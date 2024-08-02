@@ -1,6 +1,6 @@
 function circleSpin(sx, sy, l, r)
 	screen.drawLine(sx, sy, sx+l*math.sin(r), sy+l*math.cos(r))
-	screen.drawRectF((sx+l*math.sin(r))-1.5, (sy+l*math.cos(r))-1.5, 3, 3)
+	screen.drawRectF((sx+l*math.sin(r)*0.8)-1.5, (sy+l*math.cos(r)*0.8)-1.5, 3, 3)
 end
 function circleSpinC(sx, sy, l, r, c)
 	screen.drawLine(sx+c*math.sin(r), sy+c*math.cos(r), sx+l*math.sin(r), sy+l*math.cos(r))
@@ -33,32 +33,58 @@ function onTick()
 	
 	rightPipe = (clamp(input.getNumber(3), 0, 200)/200)*(math.pi*1.12732)-.2
 	rightCyl = (clamp(input.getNumber(4), 0, 200)/200)*(math.pi*1.12732)-.2
+	color = (clamp(input.getNumber(5), 0, 100))
+	light = (clamp(input.getNumber(6), 0, 10))
 end
 
 function onDraw()
-	screen.setColor(255, 255, 255)
-	circle(10, 48, 35, 25)
-	circle(86, 48, 35, 25)
-	screen.drawLine(48, 0, 48, 96)
-	screen.setColor(255, 0, 0)
+	screen.setColor(color/10 + light/4 ,color/10 + light /6,color/10)
+	screen.drawRectF(0,0, 100, 100)
+	
+	screen.setColor(color + light/2, color + light/3, color)
+	circle(10, 48, 36, 25)
+	circle(10, 48, 33, 25)
+	circle(86, 48, 36, 25)
+	circle(86, 48, 33, 25)
+	
+	screen.setColor(color/10 + light/4 ,color/10 + light/6,color/10)
+	screen.drawRectF(0,0, 5, 100)
+	screen.drawRectF(92,0, 5,100)
+	screen.setColor(color + light/2, color + light/3, color)
+	
+	textSpin(5, 48, 23, 0, 10)
+	textSpin(9, 48, 21, (math.pi/4.7), 50)
+	textSpin(13, 49, 17, (math.pi/2.1), 90)
+	textSpin(10, 51, 20, ((math.pi/3)+(math.pi/2)), 130)
+	textSpin(8, 51, 30, (math.pi), 170)
+	
+	textSpin(80, 45, 25, 0, 10)
+	textSpin(86, 49, 25, math.pi/-3.4, 50)
+	textSpin(86, 48, 30, math.pi/-2.1, 90)
+	textSpin(86, 48, 30, ((math.pi/-1.5)), 130)
+	textSpin(86, 48, 30, (math.pi*-.85), 170)
+	
+	screen.setColor(color*1.1 + light/2 ,0, 0)
 	circleSpin(10, 48, 27, leftPipe)
 	circleSpin(86, 48, 27, (rightPipe*-1))
-	screen.setColor(255, 255, 255)
+	screen.setColor(color + light/2, color + light/3, color)
 	circleSpin(10, 48, 27, leftCyl)
 	circleSpin(86, 48, 27, (rightCyl*-1))
-	textSpin(10, 48, 25, 0, 0)
-	textSpin(10, 48, 20, (math.pi/4), 50)
-	textSpin(10, 48, 17, (math.pi/2), 100)
-	textSpin(10, 48, 20, ((math.pi/4)+(math.pi/2)), 150)
-	textSpin(10, 48, 30, (math.pi), 200)
 	
-	textSpin(86, 48, 25, 0, 0)
-	textSpin(86, 48, 25, math.pi/-3.5, 50)
-	textSpin(86, 48, 30, math.pi/-2, 100)
-	textSpin(86, 48, 32, ((math.pi/-1.5)), 150)
-	textSpin(86, 48, 30, (math.pi*-.95), 200)
 	for i = 0, 200, 10 do
-		circleSpinC(10, 48, 35, (i/200)*math.pi, 30)
-		circleSpinC(86, 48, 35, (i/200)*-math.pi, 30)
+		circleSpinC(10, 48, 36, (i/180)*math.pi-0.17, 32)
+		circleSpinC(86, 48, 36, (i/180)*-math.pi+0.17, 32)
 	end
+	for i = 10, 170, 40 do
+		circleSpinC(10, 48, 38, (i/180)*math.pi-0.17, 32)
+		circleSpinC(86, 48, 38, (i/180)*-math.pi+0.17, 32)
+	end
+	
+	circleSpinC(10, 48, 38, (0/180)*math.pi-0.17, 32)
+	circleSpinC(86, 48, 38, (0/180)*-math.pi+0.17, 32)
+	circleSpinC(10, 48, 38, (200/180)*math.pi-0.17, 32)
+	circleSpinC(86, 48, 38, (200/180)*-math.pi+0.17, 32)
+	
+	
 end
+				
